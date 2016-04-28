@@ -47,11 +47,9 @@ def calculate(equation):
     sanitized_equation = ''
     number = True
     counter = 0
-    print('equation' + str(equation))
 
     #step 1: check order
     for char in equation:
-        print(char)
         if(number == True):
             if (ord(char) >= ord('0') and ord(char) <= ord('9')):
                 sanitized_equation += char
@@ -73,17 +71,22 @@ def calculate(equation):
             sanitized_equation = new_equation
 
     #step 3: remove divide by zero
+    equation_helper = sanitized_equation
+    if '/0' in equation_helper:
+        sanitized_equation = equation_helper.replace('/0', '')
 
-    print('sanitized_equation' + str(sanitized_equation))
+    #step 4: calculate equation
     equation_result = eval(sanitized_equation)
-    print('equation_result' + str(equation_result))
     return equation_result
 
-population_size = 3
+
+
+#-------------------------PROGRAM---------------------------
+population_size = 3000
 member_size = 7
 binary = False
 population = []
 population = generate_population(population_size, member_size, binary)
 for i in range(population_size):
-    result = calculate(population[i])
-    print(encode(population[i]) + ' <-> ' + population[i] + ' = ' + str(result))
+    calculation_result = calculate(population[i])
+    print(encode(population[i]) + ' <-> ' + population[i] + ' = ' + str(calculation_result))
